@@ -1,0 +1,32 @@
+.Footer{
+  border-top: 1px solid #eee;
+  background: #fafafa;
+
+  /* full-bleed: se estira fuera del contenedor de 1200px */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+
+  /* sticky footer: #root es flex-column y main{flex:1}, esto lo empuja abajo */
+  margin-top: auto;
+
+  /* toque sutil */
+  box-shadow: 0 -2px 8px rgba(0,0,0,.03);
+}
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .Footer { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+/* Contenido centrado dentro del ancho máximo */
+.Footer__inner{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+  text-align: center;
+}
+
+.Footer__copy{
+  margin: 0;
+  color: #555;
+  font-size: 0.95rem;
+}

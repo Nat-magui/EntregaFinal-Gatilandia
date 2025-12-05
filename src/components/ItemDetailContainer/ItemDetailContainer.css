@@ -1,0 +1,63 @@
+/* Contenedor de la vista de detalle (solo layout y espaciados) */
+.IDC {
+  padding: 16px;
+}
+
+/* ---------- Skeletons ---------- */
+.IDC__skeleton {
+  display: grid;
+  gap: 16px;
+  /* imita dos columnas en desktop (imagen + texto) */
+  grid-template-columns: 1fr;
+}
+
+.IDC__imgSk,
+.IDC__textSk {
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #eee 25%, #f5f5f5 37%, #eee 63%);
+  background-size: 400% 100%;
+  animation: idcShimmer 1.4s ease infinite;
+}
+
+.IDC__imgSk { height: 280px; }            /* imagen grande */
+.IDC__textSk { height: 18px; }            /* líneas de texto */
+.IDC__textSk--short { width: 60%; }       /* línea corta */
+
+@media (min-width: 860px) {
+  .IDC__skeleton {
+    grid-template-columns: 1.1fr 1fr;     /* imagen / texto */
+    align-items: start;
+  }
+  .IDC__imgSk { height: 360px; }
+}
+
+/* Animación shimmer */
+@keyframes idcShimmer {
+  0%   { background-position: 100% 0; }
+  100% { background-position: 0 0; }
+}
+
+/* Respeta usuarios con reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .IDC__imgSk,
+  .IDC__textSk {
+    animation: none;
+    background: #f3f4f7;
+  }
+}
+
+/* ---------- Error ---------- */
+.IDC__error {
+  color: #b00020;
+  background: #fdebed;
+  border: 1px solid #f9d2d8;
+  padding: 12px 14px;
+  border-radius: 10px;
+}
+
+/* Pequeño refinamiento tipográfico para mensajes dentro del detalle */
+.IDC p { margin: 6px 0 10px; }
+
+/* Asegura que nada se desborde horizontalmente */
+.IDC, .IDC * { min-width: 0; }

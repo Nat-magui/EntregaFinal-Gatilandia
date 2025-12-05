@@ -1,0 +1,44 @@
+/* src/styles/ui.css */
+.Btn {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #222;
+  text-decoration: none;
+  font-size: .95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, color .15s ease, filter .15s ease;
+}
+
+/* 🔒 Hover solo para botones normales, no pisa los primarios */
+.Btn:not(.Btn--primary):hover {
+  background: #f3f4f6;
+  border-color: #cfd3da;
+  color: #222;              /* el texto no cambia a transparente jamás */
+}
+
+/* Primario */
+.Btn--primary {
+  background: #6e44ff;
+  border-color: #6e44ff;
+  color: #fff;              /* 🔒 asegura contraste */
+}
+.Btn--primary:hover {
+  filter: brightness(0.96);
+  color: #fff;              /* 🔒 mantiene texto blanco en hover */
+}
+
+/* Fantasma */
+.Btn--ghost {
+  background: transparent;
+}
+
+/* Foco accesible */
+.Btn:focus-visible {
+  outline: 2px solid #6e44ff;
+  outline-offset: 2px;
+}

@@ -1,0 +1,219 @@
+/* Navegación dentro del Header (el Header ya maneja full-width y sticky) */
+.Nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 56px;
+  padding: 0 1.5rem;     /* margen interno lateral */
+  max-width: 1200px;     /* ⬅️ ancho máximo del contenido */
+  margin: 0 auto;        /* ⬅️ centra el nav dentro del header */
+  box-sizing: border-box;
+}
+
+.Nav__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;        /* ⬅️ ocupa espacio disponible */
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.Nav__right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Lista de links */
+.Nav__list {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;                      /* ⬅️ toma ancho dentro de Nav__left */
+  justify-content: center;      /* ⬅️ centra los links */
+  flex-wrap: wrap;
+}
+
+/* Link base */
+.Nav__link {
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: #333;
+  text-decoration: none;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+
+/* Hover / focus accesible */
+.Nav__link:hover,
+.Nav__link:focus-visible {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+  outline: none; /* usamos el fondo + borde como indicador */
+}
+
+/* Estado ACTIVO*/
+.Nav__link--active,
+.Nav__link.active,
+.Nav__link[aria-current="page"] {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.15);
+  font-weight: 600;
+}
+
+/* Carrito a la derecha */
+.Nav__cart {
+  position: relative;
+  font-size: 18px;
+  text-decoration: none;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition: background .15s ease, border-color .15s ease;
+}
+
+.Nav__cart:hover,
+.Nav__cart:focus-visible {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
+/* Badge del carrito */
+.Nav__badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #ff4d6d;
+  color: #fff;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.Nav__logo {
+  height: 32px;           /* alto fijo */
+  width: auto;            /* mantiene proporción */
+  display: block;
+}
+
+@media (max-width: 720px) {
+  .Nav__list {
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px; /* evita recorte del focus */
+  }
+}
+
+/* === BRAND con logo a la izquierda === */
+.Nav__brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-right: 8px;
+  text-decoration: none;
+  color: #111827;
+}
+
+/* Texto de marca al lado del ícono */
+.Nav__brandText {
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Modo oscuro automático (si usás prefers-color-scheme) */
+@media (prefers-color-scheme: dark) {
+  .Nav__brand { color: #f9fafb; }
+  .Nav__logo  { color: #a78bfa; } /* violeta claro en oscuro (si usa currentColor) */
+}
+
+/* Ajustes responsivos mínimos */
+@media (max-width: 720px) {
+  .Nav {
+    gap: 10px;
+  }
+  .Nav__brand {
+    gap: 8px;
+    margin-right: 4px;
+  }
+}
+
+.Nav__auth {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.Nav__user {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.Nav__authBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.12s ease, color 0.12s ease,
+    box-shadow 0.12s ease, transform 0.05s ease;
+}
+
+/* botón “Ingresar” */
+.Nav__authBtn--login {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: #f9fafb;
+  box-shadow: 0 8px 18px rgba(79, 70, 229, 0.35);
+}
+
+/* botón “Cerrar sesión” */
+.Nav__authBtn--logout {
+  background: #f3f4f6;
+  color: #374151;
+  box-shadow: 0 4px 10px rgba(148, 163, 184, 0.35);
+}
+
+.Nav__authBtn:hover {
+  transform: translateY(-1px);
+}
+
+.Nav__authBtn--login:hover {
+  box-shadow: 0 10px 22px rgba(79, 70, 229, 0.4);
+  filter: brightness(1.03);
+}
+
+.Nav__authBtn--logout:hover {
+  background: #e5e7eb;
+}
+
+.Nav__authBtn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+@media (max-width: 640px) {
+  .Nav__auth {
+    gap: 0.4rem;
+  }
+
+  .Nav__user {
+    display: none; /* si molesta en mobile, ocultamos el nombre */
+  }
+}

@@ -1,0 +1,28 @@
+.ItemList__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.ItemList__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 14px;
+}
+
+.ItemList__link:focus {
+  outline: 2px solid #6e44ff;
+  outline-offset: 4px;
+  border-radius: 14px;
+}
+
+.ItemList__link:hover .Item {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+}
+
+.ItemList__empty {
+  opacity: 0.75;
+  padding: 8px 0;
+}

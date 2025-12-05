@@ -1,18 +1,42 @@
 import { Link } from "react-router-dom";
+import { ars, normalizeProd } from "../../utils/format";
 import "./Item.css";
 
-export const Item = ({ name, price, description, imageUrl, children }) => {
-  //recordamos el uso del children, no es obligatorio que este
+export const Item = (raw) => {
+  const p = normalizeProd(raw);
+  const prettyPrice = ars(p.price);
 
-  //Si este componente usara children ni botones que generen conflictos,
-  // podrian envolver aca con Link (agregando el uso de props "id")
   return (
-    <article className="product-item">
-      <img src={imageUrl} alt={description} />
-      <h2 className="product-title">{name}</h2>
-      <p>Precio: ${price}</p>
-      <p>Descripcion{description}</p>
-      {children}
+    <article className="Item" role="article">
+      <div className="Item__imgWrap">
+        <img
+          className="Item__img"
+          src={p.image}
+          alt={`Producto para gatos: ${p.title}`}
+          loading="lazy"
+        />
+      </div>
+
+      <div className="Item__body">
+        <h3 className="Item__title">🐱 {p.title}</h3>
+
+        {p.description && (
+          <p className="Item__desc" title={p.description}>
+            {p.description}
+          </p>
+        )}
+
+        <div className="Item__price">{prettyPrice}</div>
+
+        {/* CTA opcional para usar fuera de la grilla */}
+        {raw.showCTA && (
+          <div className="Item__actions">
+            <Link className="Btn Btn--outline" to={`/detail/${p.id}`}>
+              Ver detalle
+            </Link>
+          </div>
+        )}
+      </div>
     </article>
   );
 };
