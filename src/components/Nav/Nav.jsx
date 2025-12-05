@@ -1,15 +1,17 @@
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useCartContext } from "../../context/CartContext.jsx";
 import { useAuth } from "../../context/AuthContext.jsx";
-import logo from "/public/images/logo-gatilandia.png";
+import { assetPath } from "../../utils/assetPath.js";
 import "./Nav.css";
 
 export default function Nav() {
   const { getTotalItems } = useCartContext();
   const total = getTotalItems();
-
   const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
+
+  // 👇 esto arma bien la ruta según BASE_URL (/ en local, /gatilandia-react/ en GH Pages)
+  const logoUrl = assetPath("/images/logo-gatilandia.png");
 
   const handleLogoutClick = () => {
     logout();
@@ -32,7 +34,7 @@ export default function Nav() {
           aria-label="Ir al inicio de Gatilandia"
         >
           <img
-            src={logo}
+            src={logoUrl}
             alt="Logo de Gatilandia"
             className="Nav__logo"
           />

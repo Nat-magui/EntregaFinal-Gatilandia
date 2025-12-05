@@ -16,6 +16,7 @@ import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 
 // Rutas ligeras
 import { ItemListContainer } from "./components/ItemListContainer/ItemListContainer";
+const basename = import.meta.env.BASE_URL || "/";
 
 // Rutas pesadas: lazy
 const ItemDetailContainer = lazy(() => import("./components/ItemDetailContainer/ItemDetailContainer"));
@@ -26,7 +27,7 @@ export default function App() {
   return (
     <AuthProvider>
       <CartProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={basename}>
           <ToastProvider>
             <Header />
             <ErrorBoundary>

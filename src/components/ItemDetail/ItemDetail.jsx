@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useCartContext } from "../../context/CartContext.jsx";
 import { ars, normalizeProd } from "../../utils/format";
 import { useToast } from "../Toast/ToastProvider";
+import { assetPath } from "../../utils/assetPath.js";
 import "./ItemDetail.css";
 
 /**
@@ -21,6 +22,7 @@ export const ItemDetail = ({ detail }) => {
   const prettyPrice = ars(p.price);
   const maxQty = Math.max(1, Number(p.stock ?? 9999));
   const canAdd = qty >= 1 && qty <= maxQty;
+  const imgSrc = assetPath(p.image || p.imageUrl || detail.thumbnail);
 
   function onChangeQty(v) {
     const n = Math.max(1, Math.min(maxQty, Number(v) || 1));
@@ -44,7 +46,7 @@ export const ItemDetail = ({ detail }) => {
       <div className="ID__media">
         <img
           className="ID__img"
-          src={p.image}
+          src={imgSrc}
           alt={`Detalle: ${p.title}`}
           loading="eager"
         />

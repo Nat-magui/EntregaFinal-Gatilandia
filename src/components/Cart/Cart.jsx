@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useCartContext } from "../../context/CartContext.jsx";
 import { ars, normalizeProd } from "../../utils/format";
+import { assetPath } from "../../utils/assetPath.js";
 import { useToast } from "../Toast/ToastProvider";
 import "./Cart.css";
 
@@ -13,9 +14,15 @@ export default function Cart() {
       <main className="Cart">
         <h2 className="Cart__title">Tu carrito</h2>
         <div className="Cart__emptyBox">
-          <div className="Cart__emoji" aria-hidden>🛍️</div>
-          <p className="Cart__empty">Aún no agregaste productos.</p>
-          <Link className="Btn Btn--primary" to="/">Ver productos</Link>
+          <div className="Cart__emoji" aria-hidden>
+            🛍️
+          </div>
+          <p className="Cart__emptyText">
+            Tu carrito está vacío. Empezá agregando algo rico para tu michi.
+          </p>
+          <Link className="Btn Btn--primary" to="/">
+            Ir al catálogo
+          </Link>
         </div>
       </main>
     );
@@ -32,7 +39,6 @@ export default function Cart() {
   }
 
   function handleCheckout() {
-    // Simulación de compra: mostramos toast y limpiamos
     success(`¡Compra realizada! Total ${ars(totalPrice)} 🙌`);
     clear();
   }
@@ -46,70 +52,82 @@ export default function Cart() {
         </p>
       </header>
 
-      <ul className="Cart__list" role="list">
-        {items.map((raw) => {
-          const p = normalizeProd(raw);
-          const lineTotal = (p.price || 0) * (p.qty || 1);
+      <section className="Cart__layout">
+        <ul className="Cart__list" role="list">
+          {items.map((raw) => {
+            const p = normalizeProd(raw);
+            const lineTotal = (p.price || 0) * (p.qty || 1);
 
-          return (
-            <li key={p.id} className="Cart__row">
-              <div className="Cart__thumb">
-                <img
-                  className="Cart__img"
-                  src={p.image}
-                  alt={p.title}
-                  loading="lazy"
-                  width={92}
-                  height={92}
-                />
-              </div>
+            // 👉 importante para que funcione en GitHub Pages
+            const imgSrc = assetPath(
+              p.image || p.imageUrl || p.thumbnail || "/images/placeholder.jpg"
+            );
 
-              <div className="Cart__info">
-                <strong className="Cart__name">{p.title}</strong>
-                <span className="Cart__muted">Cantidad: {p.qty}</span>
-              </div>
+            return (
+              <li key={p.id} className="Cart__row">
+                <div className="Cart__thumb">
+                  <img
+                    className="Cart__img"
+                    src={imgSrc}
+                    alt={p.title}
+                    loading="lazy"
+                    width={92}
+                    height={92}
+                  />
+                </div>
 
-              <div className="Cart__unit">
-                <span className="Cart__label">Precio</span>
-                <span className="Cart__num">{ars(p.price)}</span>
-              </div>
+                <div className="Cart__info">
+                  <strong className="Cart__name">{p.title}</strong>
+                  <span className="Cart__muted">Cantidad: {p.qty}</span>
+                </div>
 
-              <div className="Cart__line">
-                <span className="Cart__label">Subtotal</span>
-                <span className="Cart__num Cart__num--strong">{ars(lineTotal)}</span>
-              </div>
+                <div className="Cart__priceBlock">
+                  <div className="Cart__line">
+                    <span className="Cart__label">Precio</span>
+                    <span className="Cart__num">{ars(p.price)}</span>
+                  </div>
 
-              <div className="Cart__actions">
-                <button
-                  className="Btn"
-                  onClick={() => handleRemove(p)}
-                  aria-label={`Quitar ${p.title} del carrito`}
-                >
-                  Quitar
-                </button>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+                  <div className="Cart__line">
+                    <span className="Cart__label">Subtotal</span>
+                    <span className="Cart__num Cart__num--strong">
+                      {ars(lineTotal)}
+                    </span>
+                  </div>
 
-      <aside className="Cart__summary" aria-label="Resumen de compra">
-        <div className="Cart__sumRow">
-          <span>Productos</span>
-          <span className="Cart__num">{items.length}</span>
-        </div>
-        <div className="Cart__sumRow Cart__sumRow--total">
-          <span>Total</span>
-          <strong className="Cart__num">{ars(totalPrice)}</strong>
-        </div>
-        <div className="Cart__sumActions">
-          <button className="Btn Btn--ghost" onClick={handleClear}>Vaciar</button>
-          <button className="Btn Btn--primary" onClick={handleCheckout}>
-            Finalizar compra
-          </button>
-        </div>
-        <p className="Cart__tiny">Los precios incluyen IVA. Envío se calcula en el checkout.</p>
-      </aside>
+                  <div className="Cart__actions">
+                    <button
+                      className="Btn"
+                      onClick={() => handleRemove(p)}
+                      aria-label={`Quitar ${p.title} del carrito`}
+                    >
+                      Quitar
+                    </button>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+
+        <aside className="Cart__summary" aria-label="Resumen de compra">
+          <div className="Cart__sumRow">
+            <span>Productos</span>
+            <span className="Cart__num">{items.length}</span>
+          </div>
+          <div className="Cart__sumRow Cart__sumRow--total">
+            <span>Total</span>
+            <strong className="Cart__num">{ars(totalPrice)}</strong>
+          </div>
+          <div className="Cart__sumActions">
+            <button className="Btn Btn--ghost" onClick={handleClear}>
+              Vaciar
+            </button>
+            <button className="Btn Btn--primary" onClick={handleCheckout}>
+              Finalizar compra
+            </button>
+          </div>
+        </aside>
+      </section>
     </main>
   );
 }
