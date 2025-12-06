@@ -2,7 +2,7 @@ export const ars = (n) =>
   new Intl.NumberFormat("es-AR", {
     style: "currency",
     currency: "ARS",
-    maximumFractionDigits: 0,
+    maximumFractionDigits: 2,
   }).format(Number(n || 0));
 
 export const normalizeProd = (p = {}) => {
