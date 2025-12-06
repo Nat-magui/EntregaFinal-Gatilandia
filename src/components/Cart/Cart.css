@@ -1,20 +1,34 @@
 .Cart {
-  padding: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
 }
 
 /* ---------- Header ---------- */
+.Cart__header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
 .Cart__title {
-  margin: 0 0 4px;
-  font-size: clamp(1.2rem, 1.05rem + .6vw, 1.5rem);
+  margin: 0;
+  font-size: clamp(1.4rem, 1.1rem + 0.8vw, 1.8rem);
 }
 
 .Cart__subtitle {
-  margin: 0 0 12px;
-  color: #666;
+  margin: 0;
+  font-size: 0.9rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #4338ca;
+  text-decoration: none; /* por si lo hacés <a> */
 }
 
 /* ---------- Empty state ---------- */
-.Cart__emptyBox{
+.Cart__emptyBox {
   margin-top: 8px;
   border: 1px dashed #d9d9df;
   background: #fff;
@@ -23,15 +37,24 @@
   text-align: center;
 }
 
-.Cart__emoji{
+.Cart__emoji {
   font-size: 38px;
   line-height: 1;
   margin-bottom: 8px;
 }
 
-.Cart__empty{
+.Cart__emptyText {
   margin: 0 0 14px;
   color: #555;
+}
+
+/* ---------- Layout principal: lista + resumen ---------- */
+.Cart__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(260px, 1fr);
+  gap: 20px;
+  align-items: flex-start;
+  margin-top: 16px;
 }
 
 /* ---------- Listado ---------- */
@@ -52,21 +75,105 @@
   border-radius: 14px;
   background: #fff;
   padding: 10px 12px;
-  transition: box-shadow .15s ease, border-color .15s ease, transform .15s ease;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease,
+    transform 0.15s ease;
 }
 
 .Cart__row:hover {
   border-color: #ddd;
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(0,0,0,.06);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
 }
 
-.Cart__thumb { aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden; background: #f3f4f7; }
-.Cart__img   { width: 100%; height: 100%; object-fit: cover; display: block; }
+.Cart__thumb {
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f3f4f7;
+}
+.Cart__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
-.Cart__info { display: grid; gap: 4px; align-content: center; }
-.Cart__name { font-weight: 700; }
-.Cart__muted { color: #666; font-size: .95rem; }
+.Cart__info {
+  display: grid;
+  gap: 4px;
+  align-content: center;
+}
+.Cart__name {
+  font-weight: 700;
+}
+.Cart__muted {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* ---------- Control de cantidad ---------- */
+.Cart__qtyRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.Cart__qtyControl {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: #f3f4f6;
+}
+
+.Cart__qtyBtn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.9rem;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4b5563;
+}
+
+.Cart__qtyBtn:hover {
+  background: #e5e7eb;
+}
+
+.Cart__qtyValue {
+  min-width: 18px;
+  text-align: center;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Chip de quitar con tachito ---------- */
+.Cart__removeChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease, transform 0.05s ease;
+}
+
+.Cart__removeChip:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  box-shadow: 0 4px 10px rgba(148, 163, 184, 0.4);
+  transform: translateY(-1px);
+}
 
 /* Columnas numéricas con tipografía tabular */
 .Cart__unit,
@@ -79,12 +186,26 @@
   align-content: center;
 }
 
-.Cart__label { color: #888; font-size: .85rem; }
-.Cart__num { font-weight: 600; }
-.Cart__num--strong { font-weight: 800; }
+.Cart__label {
+  color: #888;
+  font-size: 0.85rem;
+}
+.Cart__num {
+  font-weight: 600;
+}
+.Cart__num--strong {
+  font-weight: 800;
+}
 
 /* Acciones */
-.Cart__actions { min-width: 110px; text-align: right; }
+.Cart__actions {
+  min-width: 110px;
+  text-align: right;
+}
+
+.Cart__actions .Btn:hover {
+  background: #e5e7eb;
+}
 
 /* ---------- Resumen ---------- */
 .Cart__summary {
@@ -92,9 +213,8 @@
   background: #fff;
   border-radius: 14px;
   padding: 14px;
-  max-width: 520px;
-  margin-left: auto; /* alinea a la derecha del contenedor */
-  box-shadow: 0 6px 16px rgba(0,0,0,.04);
+  max-width: 100%; /* antes tenías 520px */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
 }
 
 .Cart__sumRow {
@@ -112,20 +232,47 @@
   font-size: 1.05rem;
 }
 
+.Cart__sumRow--total .Cart__num {
+  font-weight: 800;
+  color: #4f46e5; /* violeta como botón principal */
+}
+
 .Cart__sumActions {
   display: flex;
+  justify-content: flex-end;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .Cart__tiny {
   margin: 8px 0 0;
   color: #777;
-  font-size: .85rem;
+  font-size: 0.85rem;
+}
+
+/* Botón principal del resumen: violeta power */
+.Cart__sumActions .Btn.Btn--primary {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: #f9fafb;
+  box-shadow: 0 8px 18px rgba(79, 70, 229, 0.35);
+  border: none;
+}
+
+.Cart__sumActions .Btn.Btn--primary:hover {
+  filter: brightness(1.03);
+  box-shadow: 0 10px 22px rgba(79, 70, 229, 0.45);
 }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 820px) {
+  .Cart__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .Cart__summary {
+    max-width: 100%;
+  }
+
   .Cart__row {
     grid-template-columns: 72px 1fr auto;
     grid-template-areas:
@@ -134,10 +281,22 @@
       "thumb line actions";
     align-items: start;
   }
-  .Cart__thumb { grid-area: thumb; }
-  .Cart__info  { grid-area: info; }
-  .Cart__unit  { grid-area: unit; text-align: left; }
-  .Cart__line  { grid-area: line; text-align: left; }
-  .Cart__actions { grid-area: actions; text-align: right; }
-  .Cart__summary { margin-left: 0; }
+  .Cart__thumb {
+    grid-area: thumb;
+  }
+  .Cart__info {
+    grid-area: info;
+  }
+  .Cart__unit {
+    grid-area: unit;
+    text-align: left;
+  }
+  .Cart__line {
+    grid-area: line;
+    text-align: left;
+  }
+  .Cart__actions {
+    grid-area: actions;
+    text-align: right;
+  }
 }

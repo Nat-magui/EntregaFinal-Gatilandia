@@ -6,9 +6,11 @@ import { useToast } from "../Toast/ToastProvider";
 import "./Cart.css";
 
 export default function Cart() {
-  const { items, totalPrice, removeItem, clear } = useCartContext();
+  const { items, totalPrice, removeItem, clear, updateItemQty } =
+    useCartContext();
   const { info, success } = useToast();
 
+  // Si no hay items, mostramos estado vacio
   if (!items.length) {
     return (
       <main className="Cart">
@@ -28,6 +30,12 @@ export default function Cart() {
     );
   }
 
+  // Cantidad TOTAL de unidades
+  const totalUnits = items.reduce((acc, raw) => {
+    const p = normalizeProd(raw);
+    return acc + (p.qty || 0);
+  }, 0);
+
   function handleRemove(p) {
     removeItem(p.id);
     info(`Quitado: ${p.title}`);
@@ -43,12 +51,30 @@ export default function Cart() {
     clear();
   }
 
+  function handleDecrement(p) {
+    const current = p.qty || 1;
+    const next = current - 1;
+
+    if (next <= 0) {
+      removeItem(p.id);
+      info(`Quitado: ${p.title}`);
+    } else {
+      updateItemQty(p.id, next);
+    }
+  }
+
+  function handleIncrement(p) {
+    const current = p.qty || 1;
+    const next = current + 1;
+    updateItemQty(p.id, next);
+  }
+
   return (
     <main className="Cart">
       <header className="Cart__header">
         <h2 className="Cart__title">Tu carrito</h2>
         <p className="Cart__subtitle">
-          {items.length} {items.length === 1 ? "producto" : "productos"}
+          {totalUnits} {totalUnits === 1 ? "producto" : "productos"}
         </p>
       </header>
 
@@ -58,7 +84,7 @@ export default function Cart() {
             const p = normalizeProd(raw);
             const lineTotal = (p.price || 0) * (p.qty || 1);
 
-            // 👉 importante para que funcione en GitHub Pages
+            // Para que funcione en GitHub Pages
             const imgSrc = assetPath(
               p.image || p.imageUrl || p.thumbnail || "/images/placeholder.jpg"
             );
@@ -78,7 +104,30 @@ export default function Cart() {
 
                 <div className="Cart__info">
                   <strong className="Cart__name">{p.title}</strong>
-                  <span className="Cart__muted">Cantidad: {p.qty}</span>
+
+                  {/* Control de cantidad */}
+                  <div className="Cart__qtyRow">
+                    <span className="Cart__muted">Cantidad:</span>
+                    <div className="Cart__qtyControl">
+                      <button
+                        type="button"
+                        className="Cart__qtyBtn"
+                        onClick={() => handleDecrement(p)}
+                        aria-label={`Disminuir cantidad de ${p.title}`}
+                      >
+                        −
+                      </button>
+                      <span className="Cart__qtyValue">{p.qty}</span>
+                      <button
+                        type="button"
+                        className="Cart__qtyBtn"
+                        onClick={() => handleIncrement(p)}
+                        aria-label={`Aumentar cantidad de ${p.title}`}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="Cart__priceBlock">
@@ -96,11 +145,11 @@ export default function Cart() {
 
                   <div className="Cart__actions">
                     <button
-                      className="Btn"
+                      className="Cart__removeChip"
                       onClick={() => handleRemove(p)}
                       aria-label={`Quitar ${p.title} del carrito`}
                     >
-                      Quitar
+                      🗑️ <span className="Cart__removeText">Quitar</span>
                     </button>
                   </div>
                 </div>
@@ -112,7 +161,7 @@ export default function Cart() {
         <aside className="Cart__summary" aria-label="Resumen de compra">
           <div className="Cart__sumRow">
             <span>Productos</span>
-            <span className="Cart__num">{items.length}</span>
+            <span className="Cart__num">{totalUnits}</span>
           </div>
           <div className="Cart__sumRow Cart__sumRow--total">
             <span>Total</span>

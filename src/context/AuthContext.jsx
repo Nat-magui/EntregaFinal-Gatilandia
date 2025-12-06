@@ -47,6 +47,7 @@ export function AuthProvider({ children }) {
 
   function logout() {
     setUser(null);
+    setError(null);
     localStorage.removeItem(AUTH_STORAGE_KEY);
   }
 

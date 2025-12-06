@@ -1,7 +1,7 @@
 // Esta es tu URL de MockAPI
 const BASE_URL = "https://6932e537e5a9e342d271399b.mockapi.io/products";
 
-// Función interna para hacer fetch y manejar errores básicos
+// funcion interna para hacer fetch y manejar errores basicos
 async function fetchJSON(url, options = {}) {
   const res = await fetch(url, options);
 
@@ -14,7 +14,7 @@ async function fetchJSON(url, options = {}) {
 
 /**
  * Traer lista de productos.
- * Si viene una categoría, filtra por category.
+ * Si viene una categoria, filtra por category.
  */
 export async function getProducts(category) {
   let url = BASE_URL;

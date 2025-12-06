@@ -16,7 +16,7 @@ export function CartProvider({ children }) {
   useEffect(() => {
     try {
       localStorage.setItem("cart", JSON.stringify(items));
-    } catch {}
+    } catch { }
   }, [items]);
 
   function addItem(product, qty = 1) {
@@ -39,6 +39,17 @@ export function CartProvider({ children }) {
     setItems([]);
   }
 
+  function updateItemQty(id, newQty) {
+    setItems((prev) =>
+      prev
+        .map((item) =>
+          item.id === id ? { ...item, qty: newQty } : item
+        )
+        // si llega a 0 o menos, lo sacamos del carrito
+        .filter((item) => (item.qty || 0) > 0)
+    );
+  }
+
   const totalQty = useMemo(
     () => items.reduce((acc, p) => acc + (p.qty ?? 1), 0),
     [items]
@@ -53,7 +64,7 @@ export function CartProvider({ children }) {
     return totalQty;
   }
 
-  const value = { items, addItem, removeItem, clear, totalQty, totalPrice, getTotalItems };
+  const value = { items, addItem, removeItem, clear, totalQty, totalPrice, getTotalItems, updateItemQty, };
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 

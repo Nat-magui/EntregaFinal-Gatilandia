@@ -7,7 +7,7 @@ export const Item = (raw) => {
   const p = normalizeProd(raw);
   const prettyPrice = ars(p.price);
 
-  const imgSrc = assetPath(p.image || p.imageUrl); // 👈 acá armamos la URL correcta
+  const imgSrc = assetPath(p.image || p.imageUrl); // Armamos el URL correcto
 
   return (
     <article className="Item" role="article">

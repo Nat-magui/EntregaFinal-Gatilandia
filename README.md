@@ -1,67 +1,108 @@
+# 🐈 Gatilandia – Tienda de productos para michis exigentes
 
-# 🐈 Gatilandia – Tienda de productos para gatos
+Proyecto final de **React** del curso
+**Talento Tech – Desarrollo Frontend con JavaScript**.
 
-Proyecto final de React del curso **Talento Tech – Desarrollo Frontend con JavaScript**.  
 Gatilandia es un pequeño e-commerce ficticio de productos para gatos que permite:
 
-- Navegar por un catálogo de productos.
-- Filtrar por categorías.
-- Ver el detalle de cada producto.
-- Agregar ítems al carrito de compras.
-- Simular un login de administrador y proteger rutas.
+* Navegar un catálogo de productos.
+* Filtrar por categorías.
+* Ver el detalle de cada producto.
+* Agregar ítems al carrito y ajustar cantidades.
+* Ingresar como **admin** para crear nuevos productos desde un panel de administración.
 
-> 💡 Es un proyecto educativo, sin fines comerciales. La marca y el logo de “Gatilandia” son ficticios.
+> 💡 Es un proyecto educativo, sin fines comerciales.
+> La marca, las imágenes y el logo de “Gatilandia” son ficticios.
 
 ---
 
 ## ✨ Funcionalidades principales
 
-- **Catálogo de productos**
-  - Listado principal de productos en la página de inicio.
-  - Filtro por categoría desde la navegación: `Alimentos`, `Juguetes`, `Higiene`, `Accesorios`.
-  - Datos obtenidos desde una API Mock (MockAPI).
+### 🛒 Tienda
 
-- **Detalle de producto**
-  - Ruta dinámica `/detail/:id`.
-  - Muestra imagen, nombre, descripción y precio del producto.
-  - Posibilidad de sumar el producto al carrito desde el detalle.
+* **Catálogo de productos**
 
-- **Carrito de compras**
-  - Agregar productos desde el listado y el detalle.
-  - Ver cantidad total de productos en el ícono del carrito.
-  - Listado de productos seleccionados, cantidades y total.
-  - El carrito está manejado con **Context** para poder usarlo en toda la app.
+  * Listado principal en la página de inicio.
+  * Filtro por categoría desde la navegación: `Alimentos`, `Juguetes`, `Higiene`, `Accesorios`.
+  * Datos obtenidos desde una **API Mock (MockAPI)**.
 
-- **Autenticación simulada**
-  - Pantalla de **login** con formulario estilizado.
-  - Autenticación manejada con **AuthContext** (sin backend real).
-  - Usuario demo:
-    - Usuario: `admin` **o** `admin@example.com`
-    - Contraseña: `1234`
-  - Sesión guardada en `localStorage` durante la navegación.
+* **Detalle de producto**
 
-- **Rutas protegidas**
-  - El carrito (`/cart`) es una **ruta protegida**.
-  - Si el usuario no está logueado, se lo redirige a `/login`.
-  - Luego del login se lo devuelve a la página que intentó visitar.
+  * Ruta dinámica `/detail/:id`.
+  * Muestra imagen, nombre, descripción y precio.
+  * Permite sumar el producto al carrito desde el detalle.
 
-- **Diseño**
-  - Diseño responsive y limpio, inspirado en interfaces modernas de e-commerce.
-  - Header con navegación y logo de Gatilandia.
-  - Cards de productos con imagen, título, descripción corta y precio.
+* **Carrito de compras**
+
+  * Agregar productos desde el listado y el detalle.
+  * Display del **contador de ítems** en el icono del carrito.
+  * Listado con:
+
+    * Imagen, nombre y categoría.
+    * Cantidad seleccionada por ítem.
+    * Precio unitario y subtotal.
+  * Controles para:
+
+    * Incrementar / decrementar cantidad.
+    * Eliminar un producto específico.
+    * Vaciar completamente el carrito.
+  * Manejado con **Context API (`CartContext`)** para usarlo en toda la app.
+
+### 🔐 Autenticación & rutas protegidas
+
+* **Login de administrador (simulado)**
+
+  * Pantalla de login con UI cuidada.
+  * Autenticación manejada en el front con `AuthContext` (no hay backend real).
+  * Usuario demo:
+
+    * Usuario: `admin` **o** `admin@example.com`
+    * Contraseña: `1234`
+  * Sesión guardada en `localStorage` para mantener el estado mientras se navega.
+
+* **Rutas protegidas**
+
+  * Se utiliza un componente `ProtectedRoute` que:
+
+    * Muestra un mensaje de “verificando sesión” mientras lee el estado desde `localStorage`.
+    * Redirige a `/login` si no hay sesión válida.
+  * Actualmente se protege el **panel de administración**:
+
+    * `/admin/altaproductos`
+
+### 🛠️ Panel de administración
+
+* Layout propio con **tema oscuro**, separado visualmente de la tienda.
+* Sección **“Alta de productos”** con formulario dividido en bloques:
+
+  * Datos del producto: nombre, precio (acepta decimales), categoría y descripción.
+  * Imágenes:
+
+    * Subida de archivo desde la PC → se envía a **ImgBB**.
+    * Alternativa: campo para URL de imagen (por ejemplo, imágenes locales en `/public/images`).
+* Validaciones:
+
+  * Nombre obligatorio.
+  * Precio numérico > 0 (soporta `1500.60` y `1500,60`).
+  * Categoría obligatoria.
+  * Descripción con longitud mínima.
+  * Se requiere **archivo o URL de imagen**.
+* Notificaciones con un pequeño sistema de **toasts** (éxito, error, info).
 
 ---
 
 ## 🧱 Tecnologías utilizadas
 
-- [React](https://react.dev/) (con Vite)
-- [React Router DOM](https://reactrouter.com/)
-- Context API para:
-  - `CartContext` (carrito)
-  - `AuthContext` (autenticación)
-- CSS puro (componentes estilizados con archivos `.css`)
-- [MockAPI](https://mockapi.io/) para simular API REST (`GET /products`)
-- JavaScript (ES6+)
+* [React](https://react.dev/) + [Vite](https://vitejs.dev/)
+* [React Router DOM](https://reactrouter.com/)
+* **Context API**:
+
+  * `CartContext` – estado global del carrito.
+  * `AuthContext` – estado de autenticación.
+* CSS modularizado por componente (`.css` por carpeta).
+* [MockAPI](https://mockapi.io/) – API REST falsa para productos.
+* [ImgBB](https://api.imgbb.com/) – subida de imágenes desde el panel admin.
+* JavaScript moderno (ES6+).
 
 ---
 
@@ -71,148 +112,167 @@ Gatilandia es un pequeño e-commerce ficticio de productos para gatos que permit
 src/
   components/
     Nav/
-      Nav.jsx
-      Nav.css
-    ItemListContainer/
-      ItemListContainer.jsx
-      ItemListContainer.css
-    ItemList/
-      ItemList.jsx
-      ItemList.css
-    Item/
-      Item.jsx
-      Item.css
-    ItemDetailContainer/
-      ItemDetailContainer.jsx
-      ItemDetailContainer.css
-    ItemDetail/
-      ItemDetail.jsx
-      ItemDetail.css
+    Header/
+    Footer/
     Cart/
-      Cart.jsx
-      Cart.css
     Login/
-      Login.jsx
-      Login.css
+    Item/
+    ItemList/
+    ItemListContainer/
+    ItemDetail/
+    ItemDetailContainer/
+    Toast/
+    ProtectedRoute/
+    adminComponents/
+      AdminLayout/
+      ProductFormContainer/
+
   context/
     CartContext.jsx
     AuthContext.jsx
+
   services/
-    products.js
+    products.js       # llamadas a MockAPI
+    uploadImage.js    # integración con ImgBB
+
+  utils/
+    assetPath.js      # helper para paths (GitHub Pages, etc.)
+    format.js         # helpers de formato (ARS, normalización)
+    validateProduct.js
+
   App.jsx
   main.jsx
 
 public/
-  images/          # Imágenes de los productos (formato .webp)
+  images/             # imágenes de productos
   logo-gatilandia.png
-````
+```
+
+> La estructura real puede tener más archivos, pero esta es la idea general.
 
 ---
 
 ## 🌐 API de productos (MockAPI)
 
-Los productos se obtienen desde MockAPI con la URL:
+Los productos se obtienen desde MockAPI:
 
 ```txt
 https://6932e537e5a9e342d271399b.mockapi.io/products
 ```
 
-Cada producto tiene esta estructura básica:
+Ejemplo de producto:
 
 ```json
 {
   "id": "1",
   "name": "Alimento seco premium gato adulto 3kg",
-  "price": 18999,
+  "price": 18999.6,
   "category": "alimentos",
   "description": "Balanceado premium con taurina y omega 3/6 para gatos adultos.",
   "imageUrl": "/images/cat-food-premium-adulto-3kg.webp"
 }
 ```
 
-* `category` se usa para filtrar en las rutas:
+* `category` se usa para las rutas:
 
   * `/category/alimentos`
   * `/category/juguetes`
   * `/category/higiene`
   * `/category/accesorios`
-* `imageUrl` apunta a archivos dentro de `public/images`.
 
-El acceso a la API está encapsulado en `src/services/products.js` con funciones como:
+* `imageUrl` puede apuntar a:
 
-* `getProducts()` – obtiene el listado completo.
-* `getProductById(id)` – obtiene un producto específico.
+  * Un archivo de `/public/images`.
+  * Una URL externa generada por ImgBB.
+
+La lógica de acceso está encapsulada en `src/services/products.js`:
+
+* `getProducts(categoryId?)` – lista filtrada o completa.
+* `getProductById(id)` – detalle.
+* `createProduct(payload)` – alta de producto desde el panel admin.
 
 ---
 
-## 🔐 Autenticación demo
+## 📸 Subida de imágenes (ImgBB)
 
-La autenticación está simulada en el front usando `AuthContext`.
+Para subir imágenes desde el admin se usa el servicio de ImgBB.
 
-* Usuario demo:
-
-  * **Usuario:** `admin` *o* `admin@example.com`
-  * **Contraseña:** `1234`
-* Si las credenciales son válidas, se almacena un objeto usuario en `localStorage` bajo la key:
+En `src/services/uploadImage.js` se utiliza la variable de entorno:
 
 ```txt
-gatilandia_auth_v1
+VITE_IMGBB_API_KEY
 ```
 
-La ruta `/cart` está protegida y requiere estar logueado.
-Si el usuario no tiene sesión activa y entra a `/cart`, se lo redirige a `/login`.
+Configuración:
+
+1. Crear un archivo `.env` en la raíz del proyecto:
+
+```env
+VITE_IMGBB_API_KEY=TU_API_KEY_DE_IMGBB
+```
+
+2. Reiniciar el servidor de Vite para que tome el valor.
+
+Si no se configura la API key, el formulario permite usar únicamente URLs manuales como `imageUrl`.
 
 ---
 
-## 🧪 Rutas principales
+## 🧭 Rutas principales
 
-* `/` → Home, listado de todos los productos.
-* `/category/:categoryId`
-
-  * `alimentos`, `juguetes`, `higiene`, `accesorios`.
-* `/detail/:id` → Detalle de un producto.
-* `/cart` → Carrito (ruta protegida).
-* `/login` → Pantalla de login.
+* `/` – Home, catálogo completo.
+* `/category/:categoryId` – Listado filtrado por categoría.
+* `/detail/:id` – Detalle de producto.
+* `/cart` – Carrito de compras.
+* `/login` – Pantalla de login.
+* `/admin/altaproductos` – Panel de alta de productos (**ruta protegida**).
 
 ---
 
-## 💻 Requisitos previos
+## 💻 Requisitos
 
-* Node.js **>= 18** (recomendado)
-* npm o pnpm (en este proyecto se usa npm en los ejemplos)
+* Node.js **>= 18**
+* npm (o pnpm / yarn, según prefieras)
 
 ---
 
 ## 🚀 Cómo ejecutar el proyecto
 
-1. Clonar el repositorio:
+1. **Clonar el repositorio**
 
 ```bash
 git clone https://github.com/usuario/mi-repo-gatilandia.git
 cd mi-repo-gatilandia
 ```
 
-2. Instalar dependencias:
+2. **Instalar dependencias**
 
 ```bash
 npm install
 ```
 
-3. Ejecutar en modo desarrollo:
+3. **Configurar variables de entorno (opcional pero recomendado)**
+
+Crear `.env`:
+
+```env
+VITE_IMGBB_API_KEY=TU_API_KEY_DE_IMGBB
+```
+
+4. **Levantar en modo desarrollo**
 
 ```bash
 npm run dev
 ```
 
-La aplicación suele abrirse en `http://localhost:5173/` (o el puerto que indique Vite).
+Abrir la URL que indique Vite (generalmente `http://localhost:5173/`).
 
-4. Crear build de producción:
+5. **Build de producción**
 
 ```bash
 npm run build
 ```
 
-5. Probar el build:
+6. **Probar el build**
 
 ```bash
 npm run preview
@@ -220,35 +280,36 @@ npm run preview
 
 ---
 
-## ✅ Relación con las consignas del TP
+## ✅ Relación con las consignas del TP de React
 
-Este proyecto cumple con los puntos principales solicitados en el trabajo práctico de React:
+Este proyecto cubre los puntos solicitados en el trabajo práctico:
 
-* Uso de **Create React App / Vite** y componentes funcionales.
-* Navegación con **React Router** y **rutas dinámicas**.
-* Componente de **lista** e **ItemDetail**.
-* Manejo de estado con **hooks** (`useState`, `useEffect`, `useContext`).
+* Uso de **Vite + React** con componentes funcionales.
+* Navegación con **React Router** y rutas dinámicas.
+* Componentes de lista (`ItemList`) y detalle (`ItemDetail`).
+* Manejo de estado con hooks: `useState`, `useEffect`, `useContext`.
 * Consumo de datos desde una **API externa (MockAPI)**.
-* Implementación de un **carrito de compras**.
-* Manejo global de estado con **Context** (carrito y autenticación).
-* **Rutas protegidas** y pantalla de login simulada.
-* Estilos personalizados (CSS) y diseño responsive básico.
+* Implementación de un **carrito de compras** con estado global.
+* **Rutas protegidas** y login simulado con Context + localStorage.
+* Estilos personalizados (CSS) y diseño responsive.
+* Sección extra de **administración de productos** (bonus sobre la consigna).
 
 ---
 
 ## 🚧 Posibles mejoras futuras
 
-* Persistir el carrito en `localStorage`.
-* Agregar cantidad de productos por ítem en el carrito.
-* Agregar formulario de checkout y validaciones.
-* Integrar un backend real con base de datos.
-* Vista de administración para crear/editar productos directamente desde la app.
+* Persistir el carrito en `localStorage` entre sesiones.
+* Listado de productos en el admin con edición y eliminación.
+* Buscador y filtros avanzados (precio, orden alfabético, etc.).
+* Checkout con formulario de datos del comprador y validaciones.
+* Integrar un backend real con base de datos y autenticación JWT.
+* Modo oscuro/claro sincronizado entre tienda y panel admin.
 
 ---
 
 ## 👩‍💻 Autora
 
 Proyecto desarrollado por **Magalí Aldana Suárez**
-para el curso **React – Talento Tech** (entrega final).
+como entrega final del curso **Desarrollo Frontend con JavaScript – Talento Tech**.
 
-🐾 Gracias por visitar Gatilandia.
+🐾 ¡Gracias por visitar Gatilandia y por cuidar a tus michis con tanto amor!

@@ -1,0 +1,11 @@
+.MainLayout {
+  min-height: 100vh; /* ocupa al menos toda la altura de la ventana */
+  display: flex;
+  flex-direction: column;
+}
+
+.MainLayout-main {
+  flex: 1;             
+  padding-top: 80px;    /* espacio para el NAV fijo arriba */
+  padding-bottom: 150px; /* espacio para el FOOTER fijo abajo */
+}

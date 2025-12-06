@@ -1,14 +1,21 @@
 /* Navegación dentro del Header (el Header ya maneja full-width y sticky) */
 .Nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   min-height: 56px;
-  padding: 0 1.5rem;     /* margen interno lateral */
-  max-width: 1200px;     /* ⬅️ ancho máximo del contenido */
-  margin: 0 auto;        /* ⬅️ centra el nav dentro del header */
+  padding: 0 1.5rem;
   box-sizing: border-box;
+  background: #ffffff;
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin: 0;
+  z-index: 200; /* por encima del contenido y del footer */
 }
 
 .Nav__left {

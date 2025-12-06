@@ -3,5 +3,5 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/gatilandia-react/", // nombre EXACTO del repo en GitHub
+  base: "", // nombre EXACTO del repo en GitHub
 });

@@ -1,0 +1,202 @@
+/* === CONTENEDOR GENERAL === */
+.ProductForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: #e5e7eb;
+}
+
+.ProductForm__title {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.ProductForm__subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #9ca3af;
+}
+
+/* === CARD DEL FORM === */
+.ProductForm__card {
+  margin-top: 1.25rem;
+  background: radial-gradient(circle at top left, #020617, #02081f 70%);
+  border-radius: 1.25rem;
+  padding: 1.5rem 1.4rem 1.9rem;
+  border: 1px solid #111827;
+  box-shadow:
+    0 18px 45px rgba(15, 23, 42, 0.9),
+    0 0 0 1px rgba(148, 163, 184, 0.05);
+  display: grid;
+  gap: 1rem;
+}
+
+/* === CAMPOS === */
+.ProductForm__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* nombre / precio + categoría en 2 columnas */
+.ProductForm__field--inline {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.ProductForm__field--image {
+  border-top: 1px dashed rgba(148, 163, 184, 0.6);
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.ProductForm__imageCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* === LABELS E INPUTS === */
+.ProductForm__label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: #e5e7eb;
+}
+
+.ProductForm__input,
+.ProductForm__textarea,
+.ProductForm__input--file {
+  border-radius: 0.7rem;
+  border: 1px solid #1f2937;
+  padding: 0.6rem 0.8rem;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 0.9rem;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+  box-sizing: border-box;
+}
+
+.ProductForm__input::placeholder,
+.ProductForm__textarea::placeholder {
+  color: #6b7280;
+}
+
+.ProductForm__textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+/* focus bonito */
+.ProductForm__input:focus,
+.ProductForm__textarea:focus,
+.ProductForm__input--file:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.7);
+}
+
+/* === MENSAJES === */
+.ProductForm__error {
+  font-size: 0.8rem;
+  color: #fecaca;
+}
+
+.ProductForm__error--image {
+  margin-top: -0.4rem;
+}
+
+.ProductForm__hint {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* === ACCIONES === */
+.ProductForm__actions {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ProductForm__submit {
+  font-weight: 500;
+}
+
+/* Botón morado bien vistoso solo acá */
+.ProductForm__submit.Btn--primary {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: #f9fafb;
+  border: none;
+  box-shadow: 0 10px 28px rgba(79, 70, 229, 0.6);
+}
+
+.ProductForm__submit.Btn--primary:hover {
+  filter: brightness(1.03);
+  box-shadow: 0 12px 32px rgba(79, 70, 229, 0.8);
+}
+
+/* === HEADER INTERNO DE LA CARD === */
+.ProductForm__cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.8rem;
+}
+
+/* bloque “Datos del producto” */
+.ProductForm__block {
+  padding-bottom: 0.9rem;
+  margin-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+}
+
+.ProductForm__sectionTitle {
+  font-size: 1.05rem;
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Subtítulo para la sección "Imágenes" */
+.ProductForm__sectionTitle--sub {
+  margin-top: 0.4rem;
+  margin-bottom: 0.2rem;
+  font-size: 0.95rem;
+  color: #9ca3af;
+}
+
+/* Chip “Nuevo” */
+.ProductForm__pill {
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  color: #e0f2fe;
+  white-space: nowrap;
+}
+
+/* === RESPONSIVE === */
+@media (min-width: 768px) {
+  .ProductForm__field--inline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ProductForm__field--image {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ProductForm__card {
+    padding: 1.8rem 1.8rem 2.1rem;
+  }
+}

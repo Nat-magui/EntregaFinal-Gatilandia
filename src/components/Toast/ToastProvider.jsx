@@ -50,7 +50,7 @@ export function ToastProvider({ children }) {
 
 export function useToast() {
   const ctx = useContext(ToastCtx);
-  // Lo dejamos a prueba de balas: si no hay Provider, devolvemos no-ops
+  // si no hay Provider, devolvemos no-ops
   if (!ctx) {
     const noop = () => {};
     return {

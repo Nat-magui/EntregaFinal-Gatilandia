@@ -1,34 +1,13 @@
-/* Barra full-width (ocupa todo el ancho de la ventana) y sticky arriba */
-.Header{
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: #ffffffcc;        /* leve translucidez */
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid #eee;
-
-  /* full-bleed: se estira fuera del contenedor de 1200px */
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-}
-
-/* Contenido centrado dentro de la barra */
-.Header__inner{
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.Header__brand{
+.Header {
+  /* Header neutro, sin barra propia */
+  position: static;
   margin: 0;
-  font-size: 1.25rem;
+  padding: 0;
+  background: transparent;
+  border: none;
 }
 
-.Header__brandLink{
-  color: #111;
-  text-decoration: none;
+.Header__inner {
+  margin: 0;
+  padding: 0;
 }
-.Header__brandLink:hover{ text-decoration: underline; }

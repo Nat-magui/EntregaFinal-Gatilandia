@@ -10,7 +10,7 @@ export default function Nav() {
   const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
 
-  // 👇 esto arma bien la ruta según BASE_URL (/ en local, /gatilandia-react/ en GH Pages)
+  // (/ en local, /gatilandia-react/ en GH Pages)
   const logoUrl = assetPath("/images/logo-gatilandia.png");
 
   const handleLogoutClick = () => {
@@ -106,6 +106,16 @@ export default function Nav() {
               <span className="Nav__user">
                 Hola, {user?.username || "admin"} 👋
               </span>
+
+              {/* 🔹 Link visible al panel admin */}
+              <NavLink
+                to="/admin/altaproductos"
+                className="Nav__authBtn Nav__authBtn--admin"
+                style={activeStyle}
+              >
+                Admin
+              </NavLink>
+
               <button
                 type="button"
                 className="Nav__authBtn Nav__authBtn--logout"

@@ -27,7 +27,7 @@ export default function ItemDetailContainer() {
 
     (async () => {
       try {
-        // 👇 ahora vamos directo a MockAPI (DE ESTE MODO TRABAJAMOS CON EL)
+        // ahora vamos directo a MockAPI (DE ESTE MODO TRABAJAMOS CON EL)
         const data = await getProductById(safeId);
 
         if (!isMounted) return;
@@ -55,7 +55,7 @@ export default function ItemDetailContainer() {
     };
   }, [safeId]);
 
-  // Título dinámico
+  // Titulo dinamico
   useEffect(() => {
     const base = "Gatilandia 🐱";
     const name = detail?.name ?? detail?.title;

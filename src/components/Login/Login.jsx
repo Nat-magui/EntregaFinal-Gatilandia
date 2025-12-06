@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import "./Login.css";
 
@@ -7,24 +7,29 @@ export default function Login() {
   const { login, error, isAuthenticated } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/admin/altaproductos";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
 
     const ok = await login(username, password);
+    setSubmitting(false);
+
     if (ok) {
       navigate(from, { replace: true });
     }
   };
 
+
   if (isAuthenticated) {
-    navigate("/");
-    return null;
+    return <Navigate to="/" replace />;
   }
 
   return (
@@ -64,13 +69,23 @@ export default function Login() {
 
           <label className="LoginForm__field">
             <span>Contraseña</span>
-            <input
-              type="password"
-              placeholder="••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="LoginForm__passwordWrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className="LoginForm__togglePwd"
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </button>
+            </div>
           </label>
 
           {error && (
@@ -79,8 +94,12 @@ export default function Login() {
             </p>
           )}
 
-          <button type="submit" className="LoginForm__button">
-            Ingresar
+          <button
+            type="submit"
+            className="LoginForm__button"
+            disabled={submitting}
+          >
+            {submitting ? "Ingresando…" : "Ingresar"}
           </button>
         </form>
       </section>

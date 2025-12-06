@@ -40,7 +40,7 @@ export const ItemDetail = ({ detail }) => {
     info("Cantidad restablecida");
   }
 
-  // 👇 El return tiene que estar al nivel del componente, no dentro de handleAdd (NO TE OLVIDES MAGA)
+  // El return tiene que estar al nivel del componente, no dentro de handleAdd (NO TE OLVIDES MAGA)
   return (
     <section className="ID__wrap">
       <div className="ID__media">

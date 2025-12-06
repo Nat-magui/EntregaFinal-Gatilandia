@@ -4,35 +4,47 @@
   box-sizing: border-box;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   margin: 0;
   min-width: 320px;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans";
-  background: #f7f7fa;   /* mismo fondo que App.css */
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+    "Helvetica Neue", Arial, "Noto Sans";
+  background: #f7f7fa; /* mismo fondo que App.css */
   color: #111;
   /* No centro todo el body; cada componente maneja su layout */
 }
 
 /* Layout base con sticky footer */
-#root{
+#root {
   min-height: 100%;
   display: flex;
-  flex-direction: column;   /* header / main / footer en columna */
+  flex-direction: column; /* header / main / footer en columna */
   max-width: 1200px;
   margin: 0 auto;
-  padding: 8px 12px 20px;   /* aire lateral y base */
+  padding: 8px 12px 20px; /* aire lateral y base */
 }
 
 /* Cualquier <main> se estira para empujar el footer al fondo */
-main { flex: 1; }
+main {
+  flex: 1;
+}
 
 /* Enlaces por defecto */
-a { color: inherit; text-decoration: none; }
-a:hover { text-decoration: none; }
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
 
 /*foco visible */
 :focus-visible {

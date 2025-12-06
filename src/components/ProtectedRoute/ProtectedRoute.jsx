@@ -5,13 +5,16 @@ export default function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
   const location = useLocation();
 
-  if (loading) {
-    // mientras carga el localStorage
-    return <p style={{ padding: "2rem" }}>Verificando sesión...</p>;
-  }
+if (loading) {
+  return (
+    <div style={{ padding: "2rem" }}>
+      <Loader />
+    </div>
+  );
+}
 
   if (!isAuthenticated) {
-    // si no está logueado, lo mando a /login
+    // si no esta logueado, lo mando a /login
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

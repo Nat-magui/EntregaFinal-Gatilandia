@@ -75,3 +75,14 @@ h3{ font-size: 1.05rem; }
   html { scroll-behavior: auto; }
   * { animation: none !important; transition: none !important; }
 }
+
+.MainLayout-main {
+  min-height: calc(100vh - 140px); /* ajustá según la altura de tu header/footer */
+  padding: 1.5rem 1rem 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .MainLayout-main {
+    padding: 2rem 2rem 3rem;
+  }
+}

@@ -28,12 +28,12 @@ export const ItemListContainer = ({ titulo = "Productos" }) => {
 
     (async () => {
       try {
-        // 👇 ahora llamamos a MockAPI, no al JSON local (NOTAS DE MOCKAPI)
+        // ahora llamamos a MockAPI, no al JSON local (NOTAS DE MOCKAPI)
         const list = await getProducts(categoryId);
 
         if (!isMounted) return;
 
-        // getProducts ya recibe la categoryId, así que no hace falta filtrar acá
+        // getProducts ya recibe la categoryId, asi que no hace falta filtrar acá
         setProducts(Array.isArray(list) ? list : []);
         setStatus("success");
       } catch (e) {
@@ -51,7 +51,7 @@ export const ItemListContainer = ({ titulo = "Productos" }) => {
     };
   }, [categoryId]);
 
-  // Título dinámico
+  // Titulo dinamico
   useEffect(() => {
     const base = "Gatilandia 🐱";
     // Priorizamos categoria si existe; si no, usa el titulo pasado por props
