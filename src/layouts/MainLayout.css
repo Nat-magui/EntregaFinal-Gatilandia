@@ -1,11 +1,32 @@
 .MainLayout {
-  min-height: 100vh; /* ocupa al menos toda la altura de la ventana */
+  min-height: 100vh;          /* ocupa al menos toda la ventana */
   display: flex;
   flex-direction: column;
 }
 
+/* Contenido principal */
 .MainLayout-main {
-  flex: 1;             
-  padding-top: 80px;    /* espacio para el NAV fijo arriba */
-  padding-bottom: 150px; /* espacio para el FOOTER fijo abajo */
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+
+  /* Espacios para NAV/FOOTER fijos */
+  padding-top: 80px;
+  padding-bottom: 150px;
+
+  /* Espacio lateral y centrado del contenido */
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;             /* centra el contenido en pantallas grandes */
+}
+
+/* Ajustes para pantallas chicas */
+@media (max-width: 768px) {
+  .MainLayout-main {
+    padding-top: 72px;        /* por si el nav es un poco más chico en mobile */
+    padding-bottom: 120px;    /* menos espacio para el footer */
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
 }

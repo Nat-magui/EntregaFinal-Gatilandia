@@ -1,7 +1,17 @@
 .ItemList__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  /* 👇 auto-fit hace que aproveche mejor el espacio que auto-fill */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 18px;
+  width: 100%;
+}
+
+/* Opcional: que en pantallas MUY grandes no se estire infinito */
+@media (min-width: 1400px) {
+  .ItemList__grid {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 }
 
 .ItemList__link {
@@ -25,4 +35,5 @@
 .ItemList__empty {
   opacity: 0.75;
   padding: 8px 0;
+  text-align: center;
 }

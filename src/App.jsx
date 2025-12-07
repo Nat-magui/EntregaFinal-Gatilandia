@@ -53,14 +53,10 @@ export default function App() {
                       element={<ItemDetailContainer />}
                     />
 
-                    {/* Carrito protegido */}
+                    {/* Carrito */}
                     <Route
                       path="/cart"
-                      element={
-                        <ProtectedRoute>
-                          <Cart />
-                        </ProtectedRoute>
-                      }
+                      element={<Cart />}
                     />
                   </Route>
 

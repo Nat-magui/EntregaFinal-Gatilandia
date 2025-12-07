@@ -8,8 +8,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  min-height: 56px;
-  padding: 0 1.5rem;
+  min-height: 52px;
+  padding: 0.4rem 1.25rem;
   box-sizing: border-box;
   background: #ffffff;
   border-bottom: 1px solid #eee;
@@ -22,7 +22,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  flex: 1;        /* ⬅️ ocupa espacio disponible */
+  flex: 1;
   flex-wrap: wrap;
   min-width: 0;
 }
@@ -40,8 +40,8 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  flex: 1;                      /* ⬅️ toma ancho dentro de Nav__left */
-  justify-content: center;      /* ⬅️ centra los links */
+  flex: 1;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
@@ -52,7 +52,7 @@
   border-radius: 8px;
   color: #333;
   text-decoration: none;
-  transition: background .15s ease, border-color .15s ease, color .15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 /* Hover / focus accesible */
@@ -81,7 +81,7 @@
   padding: 6px 10px;
   border: 1px solid transparent;
   border-radius: 8px;
-  transition: background .15s ease, border-color .15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .Nav__cart:hover,
@@ -109,18 +109,9 @@
 }
 
 .Nav__logo {
-  height: 32px;           /* alto fijo */
-  width: auto;            /* mantiene proporción */
+  height: 32px;
+  width: auto;
   display: block;
-}
-
-@media (max-width: 720px) {
-  .Nav__list {
-    gap: 8px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 2px; /* evita recorte del focus */
-  }
 }
 
 /* === BRAND con logo a la izquierda === */
@@ -142,21 +133,15 @@
 
 /* Modo oscuro automático (si usás prefers-color-scheme) */
 @media (prefers-color-scheme: dark) {
-  .Nav__brand { color: #f9fafb; }
-  .Nav__logo  { color: #a78bfa; } /* violeta claro en oscuro (si usa currentColor) */
-}
-
-/* Ajustes responsivos mínimos */
-@media (max-width: 720px) {
-  .Nav {
-    gap: 10px;
-  }
   .Nav__brand {
-    gap: 8px;
-    margin-right: 4px;
+    color: #f9fafb;
+  }
+  .Nav__logo {
+    color: #a78bfa;
   }
 }
 
+/* Auth */
 .Nav__auth {
   display: flex;
   align-items: center;
@@ -173,6 +158,7 @@
   align-items: center;
   justify-content: center;
   padding: 0.35rem 0.9rem;
+  margin-left: 0.25rem;
   border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 500;
@@ -215,12 +201,132 @@
   box-shadow: none;
 }
 
-@media (max-width: 640px) {
+/* Botón hamburguesa */
+.Nav__toggle {
+  display: none; /* se muestra solo en mobile */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #f8f5ff;
+  cursor: pointer;
+}
+
+.Nav__toggle span {
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: #333;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* estado abierto (cruce tipo X) */
+.Nav__toggle--open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.Nav__toggle--open span:nth-child(2) {
+  opacity: 0;
+}
+.Nav__toggle--open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Ajustes responsivos mínimos */
+@media (max-width: 1024px) {
+  .Nav {
+    gap: 10px;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    flex-wrap: nowrap;
+  }
+
+  .Nav__left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .Nav__brand {
+    gap: 8px;
+    margin-right: 4px;
+  }
+
+  /* Botón hamburguesa visible en pantallas chicas */
+  .Nav__toggle {
+    display: inline-flex;
+  }
+
+  /* 👉 SOLO ocultamos la lista de links de categorías por defecto */
+  .Nav__list {
+    display: none;
+  }
+
+  /* Carrito + login SIEMPRE visibles arriba a la derecha */
+  .Nav__right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+
   .Nav__auth {
     gap: 0.4rem;
   }
 
+  /* ocultamos el saludo para no recargar */
   .Nav__user {
-    display: none; /* si molesta en mobile, ocultamos el nombre */
+    display: none;
+  }
+
+  /* 🔽 ESTADO ABIERTO: panel desplegable lindo */
+  .Nav.Nav--open .Nav__list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    position: absolute;
+    top: 100%; /* justo debajo de la barra */
+    left: 0;
+    right: 0;
+
+    padding: 0.75rem 1.25rem 1rem;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+    z-index: 210;
+  }
+
+  .Nav.Nav--open .Nav__list li {
+    width: 100%;
+  }
+
+  .Nav.Nav--open .Nav__link {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border-radius: 999px;
+    padding: 0.5rem 0.9rem;
+  }
+}
+
+/* Desktop: nos aseguramos que se vea todo normal */
+@media (min-width: 1025px) {
+  .Nav__toggle {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .Nav__authBtn--logout,
+  .Nav__authBtn--login {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.7rem;
   }
 }

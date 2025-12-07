@@ -5,13 +5,6 @@ import { useToast } from "../Toast/ToastProvider";
 import { assetPath } from "../../utils/assetPath.js";
 import "./ItemDetail.css";
 
-/**
- * Recibe `detail` con distintas formas posibles:
- * - título:   detail.title | detail.name
- * - imagen:   detail.thumbnail | detail.imageUrl
- * - precio:   detail.price
- * - stock:    detail.stock (TODO)
- */
 export const ItemDetail = ({ detail }) => {
   const { addItem } = useCartContext();
   const { success, info } = useToast();
@@ -22,7 +15,15 @@ export const ItemDetail = ({ detail }) => {
   const prettyPrice = ars(p.price);
   const maxQty = Math.max(1, Number(p.stock ?? 9999));
   const canAdd = qty >= 1 && qty <= maxQty;
-  const imgSrc = assetPath(p.image || p.imageUrl || detail.thumbnail);
+
+  const imgSrc = assetPath(
+    p.image ||
+    p.imageUrl ||
+    detail.thumbnail ||
+    detail.image ||
+    "/images/placeholder.jpg"
+  );
+
 
   function onChangeQty(v) {
     const n = Math.max(1, Math.min(maxQty, Number(v) || 1));
@@ -31,7 +32,22 @@ export const ItemDetail = ({ detail }) => {
 
   function handleAdd() {
     if (!canAdd) return;
-    addItem({ ...p, thumbnail: p.image, imageUrl: p.image }, qty);
+
+    // 👉 Tomamos la mejor imagen disponible
+    const mainImage =
+      p.image ||
+      p.imageUrl ||
+      detail.thumbnail ||
+      detail.image ||
+      "";
+
+    const productForCart = {
+      ...p,
+      thumbnail: mainImage,
+      imageUrl: mainImage,
+    };
+
+    addItem(productForCart, qty);
     success(`Agregado: ${p.title} × ${qty}`);
   }
 
@@ -40,7 +56,6 @@ export const ItemDetail = ({ detail }) => {
     info("Cantidad restablecida");
   }
 
-  // El return tiene que estar al nivel del componente, no dentro de handleAdd (NO TE OLVIDES MAGA)
   return (
     <section className="ID__wrap">
       <div className="ID__media">
@@ -56,11 +71,15 @@ export const ItemDetail = ({ detail }) => {
         <h2 className="ID__title">🐾 {p.title}</h2>
         {p.brand && <p className="ID__brand">Marca: {p.brand}</p>}
         {p.category && <p className="ID__cat">Categoría: {p.category}</p>}
-        {p.description && <p className="ID__desc">{p.description}</p>}
+        {p.description && (
+          <p className="ID__desc">{p.description}</p>
+        )}
 
         <div className="ID__price">{prettyPrice}</div>
         <div className="ID__stock">
-          {Number.isFinite(p.stock) ? `Stock: ${p.stock}` : "Stock disponible"}
+          {Number.isFinite(p.stock)
+            ? `Stock: ${p.stock}`
+            : "Stock disponible"}
         </div>
 
         <div className="ID__actions">
