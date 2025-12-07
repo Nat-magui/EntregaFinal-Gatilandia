@@ -8,7 +8,6 @@ export const ars = (n) =>
 export const normalizeProd = (p = {}) => {
   const title = p.title ?? p.name ?? "Producto";
 
-  // 👉 siempre priorizamos imageUrl (que es lo que tiene MockAPI)
   const rawImage =
     p.imageUrl ||
     p.thumbnail ||
@@ -16,8 +15,7 @@ export const normalizeProd = (p = {}) => {
     p.img ||
     "";
 
-  const image =
-    (rawImage || "").toString().trim() || "/images/placeholder.jpg";
+  const image = (rawImage || "").toString().trim() || "/images/placeholder.jpg";
 
   const price = Number(p.price ?? 0);
 

@@ -3,11 +3,19 @@ import { ars, normalizeProd } from "../../utils/format";
 import { assetPath } from "../../utils/assetPath.js";
 import "./Item.css";
 
-export const Item = (raw) => {
+export const Item = ({ showCTA, ...raw }) => {
+  // Normalizamos el producto
   const p = normalizeProd(raw);
   const prettyPrice = ars(p.price);
 
-  const imgSrc = assetPath(p.image || p.imageUrl); // Armamos el URL correcto
+  // Siempre tratamos de sacar la mejor imagen posible
+  const imgSrc = assetPath(
+    p.image ||
+      p.imageUrl ||
+      raw.thumbnail ||
+      raw.image ||
+      "/images/placeholder.jpg"
+  );
 
   return (
     <article className="Item" role="article">
@@ -31,7 +39,7 @@ export const Item = (raw) => {
 
         <div className="Item__price">{prettyPrice}</div>
 
-        {raw.showCTA && (
+        {showCTA && (
           <div className="Item__actions">
             <Link className="Btn Btn--outline" to={`/detail/${p.id}`}>
               Ver detalle
