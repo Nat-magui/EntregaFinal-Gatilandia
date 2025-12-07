@@ -4,22 +4,23 @@ export function assetPath(path = "") {
 
   const raw = path.toString().trim();
 
-  // 1) Si ya es una URL absoluta (http/https), la dejamos así
+  // 1) Si ya es una URL absoluta (http/https), la dejamos tal cual
   if (/^https?:\/\//i.test(raw)) {
     return raw;
   }
 
-  // 2) Para rutas locales, usamos BASE_URL pero asegurando una barra inicial
-  const clean = raw.replace(/^\/+/, ""); // saco barras / de adelante
+  // 2) Para rutas locales, usamos BASE_URL pero asegurando barra inicial
+  //    Ej: raw = "/images/foo.webp"  -> clean = "images/foo.webp"
+  const clean = raw.replace(/^\/+/, "");
 
   const base = import.meta.env.BASE_URL || "/";
 
-  // normalizo base: siempre termina en "/"
+  // Normalizamos el base: siempre termina en "/"
   const normalizedBase = base.endsWith("/") ? base : `${base}/`;
 
-  // Resultado:
-  // - en dev/Vercel => "/" + "images/..."  => "/images/..."
-  // - en GitHub Pages (si algún día pones base="/EntregaFinal-Gatilandia/")
-  //   => "/EntregaFinal-Gatilandia/images/..."
+  // Resultado final SIEMPRE ABSOLUTO:
+  // - en dev / Vercel (base = "/")        -> "/images/foo.webp"
+  // - en GitHub Pages (base="/EntregaFinal-Gatilandia/")
+  //   -> "/EntregaFinal-Gatilandia/images/foo.webp"
   return `${normalizedBase}${clean}`;
 }
