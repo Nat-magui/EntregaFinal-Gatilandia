@@ -1,26 +1,23 @@
-// utils/assetPath.js
 export function assetPath(path = "") {
+  // Si no pasaron nada, uso un placeholder
   if (!path) return "/images/placeholder.jpg";
 
   const raw = path.toString().trim();
 
-  // 1) Si ya es una URL absoluta (http/https), la dejamos tal cual
+  // 1) Si ya es URL absoluta (http/https), la dejo así
   if (/^https?:\/\//i.test(raw)) {
     return raw;
   }
 
-  // 2) Para rutas locales, usamos BASE_URL pero asegurando barra inicial
-  //    Ej: raw = "/images/foo.webp"  -> clean = "images/foo.webp"
+  // 2) A partir de acá asumimos rutas locales:
+  //    - "images/foo.webp"
+  //    - "/images/foo.webp"
+  //    - "foo.webp"
+  // Normalizo quitando barras iniciales
   const clean = raw.replace(/^\/+/, "");
 
-  const base = import.meta.env.BASE_URL || "/";
-
-  // Normalizamos el base: siempre termina en "/"
-  const normalizedBase = base.endsWith("/") ? base : `${base}/`;
-
-  // Resultado final SIEMPRE ABSOLUTO:
-  // - en dev / Vercel (base = "/")        -> "/images/foo.webp"
-  // - en GitHub Pages (base="/EntregaFinal-Gatilandia/")
-  //   -> "/EntregaFinal-Gatilandia/images/foo.webp"
-  return `${normalizedBase}${clean}`;
+  // 3) Devuelvo SIEMPRE una ruta absoluta desde raíz
+  //    Esto en Vercel significa:
+  //    https://entrega-final-gatilandia.vercel.app/ + images/...
+  return `/${clean}`;
 }
