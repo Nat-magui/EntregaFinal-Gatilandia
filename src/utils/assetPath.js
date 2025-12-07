@@ -9,11 +9,16 @@ export function assetPath(path = "") {
     return raw;
   }
 
-  // 2) Si es relativa a /images, usamos BASE_URL para GitHub Pages / Vercel
+  // 2) Para rutas locales, usamos BASE_URL pero asegurando una barra inicial
+  const clean = raw.replace(/^\/+/, ""); // saco barras iniciales por prolijidad
+
   const base = import.meta.env.BASE_URL || "/";
 
-  // quitamos una barra inicial para evitar //images
-  const clean = raw.startsWith("/") ? raw.slice(1) : raw;
+  // Normalizo el base: siempre termina en "/"
+  const normalizedBase = base.endsWith("/") ? base : `${base}/`;
 
-  return `${base}${clean}`;
+  // Ahora SIEMPRE vas a obtener algo tipo:
+  // "/" + "images/..."  => "/images/..."
+  // "/EntregaFinal-Gatilandia/" + "images/..." => "/EntregaFinal-Gatilandia/images/..."
+  return `${normalizedBase}${clean}`;
 }
