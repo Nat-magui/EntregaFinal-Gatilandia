@@ -1,0 +1,242 @@
+[
+  {
+    "id": "1",
+    "name": "Alimento seco premium gato adulto 3kg",
+    "price": 18999,
+    "category": "alimentos",
+    "description": "Balanceado premium con taurina y omega 3/6 para gatos adultos.",
+    "imageUrl": "/images/cat-food-premium-adulto-3kg.webp"
+  },
+  {
+    "id": "2",
+    "name": "Alimento húmedo paté pollo 85g",
+    "price": 1799,
+    "category": "alimentos",
+    "description": "Textura paté sabor pollo, alto en humedad para mejor hidratación.",
+    "imageUrl": "/images/cat-wet-food-pollo-85g.webp"
+  },
+  {
+    "id": "3",
+    "name": "Snack dental para gatos 60g",
+    "price": 2999,
+    "category": "alimentos",
+    "description": "Croquetas crujientes que ayudan a reducir el sarro.",
+    "imageUrl": "/images/cat-snack-dental-60g.webp"
+  },
+  {
+    "id": "4",
+    "name": "Arena sanitaria aglutinante 10L",
+    "price": 13999,
+    "category": "higiene",
+    "description": "Aglutina rápido y controla olores con bajo nivel de polvo.",
+    "imageUrl": "/images/cat-litter-aglutinante-10l.webp"
+  },
+  {
+    "id": "5",
+    "name": "Piedras sanitarias de sílica 3.8L",
+    "price": 11999,
+    "category": "higiene",
+    "description": "Cristales de sílica de alta absorción, duran hasta 4 semanas.",
+    "imageUrl": "/images/cat-litter-silica-3_8l.webp"
+  },
+  {
+    "id": "6",
+    "name": "Pala para arena con soporte",
+    "price": 3499,
+    "category": "higiene",
+    "description": "Pala plástica resistente con base para guardado higiénico.",
+    "imageUrl": "/images/pala-arena-con-soporte.webp"
+  },
+  {
+    "id": "7",
+    "name": "Arenero cubierto con puerta y filtro",
+    "price": 27999,
+    "category": "higiene",
+    "description": "Arenero con tapa, puerta abatible y filtro de carbón activo.",
+    "imageUrl": "/images/arenero-cubierto-filtro.webp"
+  },
+  {
+    "id": "8",
+    "name": "Juguete caña con pluma",
+    "price": 4999,
+    "category": "juguetes",
+    "description": "Varita flexible con pluma intercambiable para juego interactivo.",
+    "imageUrl": "/images/juguete-cana-pluma.webp"
+  },
+  {
+    "id": "9",
+    "name": "Pelota con cascabel x2",
+    "price": 2499,
+    "category": "juguetes",
+    "description": "Pack de 2 pelotas con sonido suave, estimulan el movimiento.",
+    "imageUrl": "/images/pelota-cascabel-pack2.webp"
+  },
+  {
+    "id": "10",
+    "name": "Ratoncito de tela con catnip",
+    "price": 2999,
+    "category": "juguetes",
+    "description": "Juguete relleno con catnip para fomentar el juego y olfato.",
+    "imageUrl": "/images/raton-catnip.webp"
+  },
+  {
+    "id": "11",
+    "name": "Rascador con cueva y plataforma",
+    "price": 32999,
+    "category": "accesorios",
+    "description": "Poste de sisal con cueva inferior y plataforma superior.",
+    "imageUrl": "/images/rascador-cueva-plataforma.webp"
+  },
+  {
+    "id": "12",
+    "name": "Cama iglú afelpada M",
+    "price": 24999,
+    "category": "accesorios",
+    "description": "Cama tipo iglú, acolchonada y lavable, tamaño mediano.",
+    "imageUrl": "/images/cama-iglu-gato-m.webp"
+  },
+  {
+    "id": "13",
+    "name": "Comedero doble antideslizante",
+    "price": 9999,
+    "category": "accesorios",
+    "description": "Base antideslizante con dos bowls removibles de acero.",
+    "imageUrl": "/images/comedero-doble-antideslizante.webp"
+  },
+  {
+    "id": "14",
+    "name": "Bebedero fuente 2.5L con filtro",
+    "price": 25999,
+    "category": "accesorios",
+    "description": "Fuente silenciosa que incentiva a beber más agua, filtro incluido.",
+    "imageUrl": "/images/fuente-agua-2_5l.webp"
+  },
+  {
+    "id": "15",
+    "name": "Transportadora ventilada tamaño S",
+    "price": 21999,
+    "category": "accesorios",
+    "description": "Transportadora plástica con buena ventilación y traba segura.",
+    "imageUrl": "/images/transportadora-gato-s.webp"
+  },
+  {
+    "id": "16",
+    "name": "Alimento kitten crecimiento 1.5kg",
+    "price": 13999,
+    "category": "alimentos",
+    "description": "Fórmula para gatitos con DHA y proteínas de alta calidad.",
+    "imageUrl": "/images/alimento-kitten-1_5kg.webp"
+  },
+  {
+    "id": "17",
+    "name": "Alimento senior gato +7 2kg",
+    "price": 16999,
+    "category": "alimentos",
+    "description": "Soporte articular y control de peso para gatos mayores.",
+    "imageUrl": "/images/alimento-senior-2kg.webp"
+  },
+  {
+    "id": "18",
+    "name": "Sobrecitos gravy atún 85g x3",
+    "price": 4999,
+    "category": "alimentos",
+    "description": "Tri-pack de sobrecitos con salsa sabor atún.",
+    "imageUrl": "/images/sobrecitos-atun-pack3.webp"
+  },
+  {
+    "id": "19",
+    "name": "Limpiador enzimático orina 500ml",
+    "price": 7999,
+    "category": "higiene",
+    "description": "Elimina olores y manchas orgánicas, seguro para mascotas.",
+    "imageUrl": "/images/limpiador-enzimatico-500ml.webp"
+  },
+  {
+    "id": "20",
+    "name": "Toallitas húmedas hipoalergénicas 80u",
+    "price": 5499,
+    "category": "higiene",
+    "description": "Toallitas para limpieza rápida, sin alcohol ni parabenos.",
+    "imageUrl": "/images/toallitas-hipoalergenicas-80u.webp"
+  },
+  {
+    "id": "21",
+    "name": "Cortaúñas felino con tope",
+    "price": 4499,
+    "category": "higiene",
+    "description": "Cortaúñas de acero con tope de seguridad y mango antideslizante.",
+    "imageUrl": "/images/cortaunas-felino-tope.webp"
+  },
+  {
+    "id": "22",
+    "name": "Tunel plegable con cascabel",
+    "price": 11999,
+    "category": "juguetes",
+    "description": "Túnel de tela plegable con sonido, ideal para esconderse y jugar.",
+    "imageUrl": "/images/tunel-plegable-cascabel.webp"
+  },
+  {
+    "id": "23",
+    "name": "Plataforma ventana con hamaca",
+    "price": 16999,
+    "category": "juguetes",
+    "description": "Cama-hamaca con ventosas resistentes para ventana.",
+    "imageUrl": "/images/hamaca-ventana-gato.webp"
+  },
+  {
+    "id": "24",
+    "name": "Peluches catnip surtidos x3",
+    "price": 6999,
+    "category": "juguetes",
+    "description": "Set de 3 peluches con catnip de diferentes formas.",
+    "imageUrl": "/images/peluches-catnip-pack3.webp"
+  },
+  {
+    "id": "25",
+    "name": "Arnés y correa acolchados S",
+    "price": 14999,
+    "category": "accesorios",
+    "description": "Arnés respirable con correa, hebillas de liberación rápida.",
+    "imageUrl": "/images/arnes-correa-s.webp"
+  },
+  {
+    "id": "26",
+    "name": "Cepillo removedor de pelo",
+    "price": 5999,
+    "category": "accesorios",
+    "description": "Cepillo con cerdas finas y botón para liberar el pelo.",
+    "imageUrl": "/images/cepillo-removedor-pelo.webp"
+  },
+  {
+    "id": "27",
+    "name": "Contenedor hermético de alimento 6kg",
+    "price": 22999,
+    "category": "accesorios",
+    "description": "Contenedor con ruedas, tapa hermética y medidor.",
+    "imageUrl": "/images/contenedor-alimento-6kg.webp"
+  },
+  {
+    "id": "28",
+    "name": "Collar con placa grabable",
+    "price": 6999,
+    "category": "accesorios",
+    "description": "Collar ajustable con placa metálica para nombre y teléfono.",
+    "imageUrl": "/images/collar-placa-grabable.webp"
+  },
+  {
+    "id": "29",
+    "name": "Mochila transportadora con cúpula",
+    "price": 35999,
+    "category": "accesorios",
+    "description": "Mochila rígida con ventana tipo burbuja y ventilación.",
+    "imageUrl": "/images/mochila-burbuja-gato.webp"
+  },
+  {
+    "id": "30",
+    "name": "Fuente USB compacta 1.8L",
+    "price": 19999,
+    "category": "accesorios",
+    "description": "Fuente silenciosa con cable USB y luz led indicadora.",
+    "imageUrl": "/images/fuente-usb-1_8l.webp"
+  }
+]

@@ -1,0 +1,1 @@
+import{j as a,L as n}from"./index-WqMDXwdV.js";function s(){return a.jsxs("main",{className:"NF",children:[a.jsx("h2",{children:"❌ Página no encontrada"}),a.jsx("p",{className:"NF__muted",children:"La ruta no existe o fue movida."}),a.jsx(n,{className:"Btn",to:"/",children:"Volver al inicio"})]})}export{s as default};
