@@ -1,8 +1,6 @@
 # 🐈 Gatilandia
 
-**[Demo en Vercel · despliegues del proyecto](https://github.com/Nat-magui/EntregaFinal-Gatilandia/deployments)**
-
-<!-- Cuando el despliegue esté verificado, reemplazá el enlace de arriba por la URL pública de Vercel. -->
+**[Probá Gatilandia en Vercel](https://entrega-final-gatilandia.vercel.app/)**
 
 Gatilandia es una tienda ficticia de productos para gatos. Podés explorar el catálogo, filtrar por categoría, ver el detalle de un producto y completar el recorrido de compra desde el carrito. El proyecto se desarrolló como entrega final del curso **Desarrollo Frontend con JavaScript de Talento Tech**.
 
