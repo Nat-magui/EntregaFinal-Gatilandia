@@ -1,41 +1,64 @@
-export function validateProduct(values, { hasFile = false } = {}) {
+export function parseProductPrice(value) {
+  return Number(String(value ?? "").trim().replace(",", "."));
+}
+
+export function validateProduct(values) {
   const errors = {};
 
-  // === Nombre ===
-  if (!values.name || !values.name.trim()) {
+  if (!values.name?.trim()) {
     errors.name = "El nombre es obligatorio";
   }
 
-  // === Precio (acepta 1234,56 o 1234.56) ===
-  const rawPrice = String(values.price ?? "")
-    .trim()
-    .replace(",", ".");
-
-  const priceNum = Number(rawPrice);
+  const rawPrice = String(values.price ?? "").trim();
+  const price = parseProductPrice(rawPrice);
 
   if (!rawPrice) {
     errors.price = "Ingresá un precio";
-  } else if (Number.isNaN(priceNum)) {
+  } else if (!Number.isFinite(price)) {
     errors.price = "El precio debe ser un número válido";
-  } else if (priceNum <= 0) {
+  } else if (price <= 0) {
     errors.price = "El precio debe ser mayor a 0";
   }
 
-  // === Categoria ===
-  if (!values.category || !values.category.trim()) {
+  if (!values.category?.trim()) {
     errors.category = "Seleccioná una categoría";
   }
 
-  // === Descripcion ===
-  if (!values.description || values.description.trim().length < 10) {
+  if ((values.description ?? "").trim().length < 10) {
     errors.description = "La descripción debe tener al menos 10 caracteres";
   }
 
-  // === Imagen: archivo o URL ===
-  const url = (values.imageUrl || "").trim();
-  if (!hasFile && !url) {
-    errors.image = "Agregá una imagen o una URL de imagen";
+  const imageUrl = (values.imageUrl ?? "").trim();
+
+  if (!imageUrl) {
+    errors.image = "Ingresá una URL de imagen";
+  } else if (!isValidImageUrl(imageUrl)) {
+    errors.image = "Usá una URL HTTPS o una ruta como /images/gato.webp";
   }
 
   return errors;
+}
+
+function isValidImageUrl(value) {
+  if (value.startsWith("/images/")) {
+    const imagePath = value.slice("/images/".length);
+
+    return (
+      /^[^\\%\s?#]+$/.test(imagePath) &&
+      imagePath.split("/").every(
+        (segment) => segment && segment !== "." && segment !== "..",
+      )
+    );
+  }
+
+  if (!/^https:\/\/[^/\\\s]/i.test(value) || /[\\\s]/.test(value)) {
+    return false;
+  }
+
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" && !url.username && !url.password;
+  } catch {
+    return false;
+  }
 }

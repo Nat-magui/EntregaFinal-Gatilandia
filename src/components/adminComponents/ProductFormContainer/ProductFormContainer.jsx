@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { createProduct } from "../../../services/products.js";
-import { uploadImage } from "../../../services/uploadImage.js";
-import { validateProduct } from "../../../utils/validateProduct.js";
+import {
+  parseProductPrice,
+  validateProduct,
+} from "../../../utils/validateProduct.js";
 import { useToast } from "../../Toast/ToastProvider.jsx";
 import "./ProductFormContainer.css";
 
@@ -22,74 +24,45 @@ const CATEGORY_OPTIONS = [
 
 export default function ProductFormContainer() {
   const [values, setValues] = useState(INITIAL_VALUES);
-  const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
+  const { success, error: showError } = useToast();
 
-  const { success, error: showError, info } = useToast();
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setValues((prev) => ({ ...prev, [name]: value }));
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setValues((previousValues) => ({ ...previousValues, [name]: value }));
   }
 
-  function handleFileChange(e) {
-    const newFile = e.target.files?.[0] || null;
-    setFile(newFile);
-    // si subímos archivo, no necesitamos la URL manual
-    if (newFile && values.imageUrl) {
-      setValues((prev) => ({ ...prev, imageUrl: "" }));
-    }
-  }
+  async function handleSubmit(event) {
+    event.preventDefault();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+    const validationErrors = validateProduct(values);
+    setErrors(validationErrors);
 
-    const validationErrors = validateProduct(values, { hasFile: !!file });
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
       return;
     }
-    setErrors({});
+
     setSubmitting(true);
 
     try {
-      let finalImageUrl = values.imageUrl.trim();
-
-      // ⬇️ NORMALIZAR PRECIO
-      const rawPrice = String(values.price).trim().replace(",", ".");
-      const numericPrice = Number(rawPrice);
-
-      if (Number.isNaN(numericPrice)) {
-        throw new Error("El precio no es válido. Revisalo 😉");
-      }
-
-      // Si hay archivo, intentamos subirlo a ImgBB
-      if (file) {
-        info("Subiendo imagen…");
-        finalImageUrl = await uploadImage(file);
-      }
-
       const payload = {
         name: values.name.trim(),
         description: values.description.trim(),
         category: values.category.trim(),
-        price: numericPrice,
-        imageUrl: finalImageUrl || undefined,
+        price: parseProductPrice(values.price),
+        imageUrl: values.imageUrl.trim(),
       };
 
       const created = await createProduct(payload);
 
       success(
-        `Producto "${created?.name || payload.name}" creado con éxito 🐾`
+        `Producto "${created?.name || payload.name}" creado con éxito 🐾`,
       );
-
-      // Reseteo
       setValues(INITIAL_VALUES);
-      setFile(null);
-    } catch (err) {
-      console.error(err);
-      showError(err.message || "No se pudo crear el producto");
+    } catch (error) {
+      console.error(error);
+      showError(error.message || "No se pudo crear el producto");
     } finally {
       setSubmitting(false);
     }
@@ -103,15 +76,12 @@ export default function ProductFormContainer() {
       </p>
 
       <form className="ProductForm__card" onSubmit={handleSubmit} noValidate>
-        {/* ====== Header interno ====== */}
         <div className="ProductForm__cardHeader">
           <h3 className="ProductForm__sectionTitle">Datos del producto</h3>
           <span className="ProductForm__pill">Nuevo</span>
         </div>
 
-        {/* BLOQUE: datos básicos */}
         <div className="ProductForm__block">
-          {/* Nombre */}
           <div className="ProductForm__field">
             <label className="ProductForm__label">
               Nombre
@@ -133,25 +103,21 @@ export default function ProductFormContainer() {
           </div>
         </div>
 
-        {/* Precio + categoria */}
         <div className="ProductForm__field ProductForm__field--inline">
           <div>
             <label className="ProductForm__label">
               Precio (ARS)
               <input
-                type="number"
+                type="text"
                 name="price"
                 className="ProductForm__input"
-                placeholder="18999.50"
+                placeholder="18999,50"
                 value={values.price}
                 onChange={handleChange}
-                min="0"
-                step="0.01"
-                inputMode="decimal"  // tip: ayuda en mobile
+                inputMode="decimal"
                 required
               />
             </label>
-
             {errors.price && (
               <p className="ProductForm__error" role="alert">
                 {errors.price}
@@ -170,9 +136,9 @@ export default function ProductFormContainer() {
                 required
               >
                 <option value="">Seleccioná una opción</option>
-                {CATEGORY_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
+                {CATEGORY_OPTIONS.map(({ value, label }) => (
+                  <option key={value} value={value}>
+                    {label}
                   </option>
                 ))}
               </select>
@@ -185,7 +151,6 @@ export default function ProductFormContainer() {
           </div>
         </div>
 
-        {/* Descripcion */}
         <div className="ProductForm__field">
           <label className="ProductForm__label">
             Descripción
@@ -209,55 +174,32 @@ export default function ProductFormContainer() {
           )}
         </div>
 
-        {/* ====== Seccion imagenes ====== */}
-        <h3 className="ProductForm__sectionTitle ProductForm__sectionTitle--sub">
-          Imágenes
-        </h3>
-
-        <div className="ProductForm__field ProductForm__field--image">
-          <div className="ProductForm__imageCol">
-            <label className="ProductForm__label">
-              Imagen (archivo)
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                className="ProductForm__input ProductForm__input--file"
-              />
-            </label>
-            <p className="ProductForm__hint">
-              Podés subir una imagen desde tu PC (se envía a ImgBB).
-            </p>
-          </div>
-
-          <div className="ProductForm__imageCol">
-            <label className="ProductForm__label">
-              URL de imagen (alternativa)
-              <input
-                type="url"
-                name="imageUrl"
-                className="ProductForm__input"
-                placeholder="/images/cat-food-premium-adulto-3kg.webp o URL completa"
-                value={values.imageUrl}
-                onChange={handleChange}
-                disabled={!!file}
-              />
-            </label>
-            <p className="ProductForm__hint">
-              Si no querés usar ImgBB, podés pegar acá una URL (por ejemplo una
-              imagen del propio proyecto).
-            </p>
-          </div>
-        </div>
-
-        {errors.image && (
-          <p
-            className="ProductForm__error ProductForm__error--image"
-            role="alert"
-          >
-            {errors.image}
+        <div className="ProductForm__field">
+          <label className="ProductForm__label">
+            URL de imagen
+            <input
+              type="text"
+              name="imageUrl"
+              className="ProductForm__input"
+              placeholder="https://ejemplo.com/gato.webp o /images/gato.webp"
+              value={values.imageUrl}
+              onChange={handleChange}
+              aria-describedby={
+                errors.image ? "product-image-hint product-image-error" : "product-image-hint"
+              }
+              aria-invalid={Boolean(errors.image)}
+              required
+            />
+          </label>
+          <p id="product-image-hint" className="ProductForm__hint">
+            Pegá una URL HTTPS o una ruta que empiece con /images/.
           </p>
-        )}
+          {errors.image && (
+            <p id="product-image-error" className="ProductForm__error" role="alert">
+              {errors.image}
+            </p>
+          )}
+        </div>
 
         <div className="ProductForm__actions">
           <button
